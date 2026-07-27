@@ -4,7 +4,7 @@ export const courseCategory = async(req,res)=>{
       try{
            const {categoryName,status} = req.body;
 
-           if(!categoryName || !status){
+           if(!categoryName){
             return res.status(400).json({
               success:false,
                   message:"All field required",
@@ -58,3 +58,33 @@ export const getAllCategories = async (req,res)=>{
       })
     }
 }
+
+export const deleteCategory = async(req,res)=>{
+  try{
+          const {id} = req.params; 
+            console.log(id);
+            const category = await CourseCategory.findById(id);
+            console.log(category);
+            
+            if(!category){
+              return res.status(400).json({
+                success :false,
+                message:"Course category not found",
+              })
+            }
+            await CourseCategory.findByIdAndDelete(id)
+            return res.status(200).json({
+              success :true,
+                message:"Course category deleted successfully",
+            })
+  }
+  catch(error){
+    
+    return res.status(400).json({
+      success:false,
+      message:"Internal server Error",
+     
+    })
+  }
+            
+}  

@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { FiBookOpen, FiUploadCloud, FiImage, FiLink2 } from "react-icons/fi";
 import { createCourse } from "../../api/courseApi";
 import { toast } from "react-toastify";
+import { getCategories } from "../../api/categoryApi";
+ 
 const AddCourse = () => {
   const [loding, setLoding] = useState(false);
   const [thumbnail, setThumbnail] = useState(null);
   const [preview, setPreview] = useState("");
-
+const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -74,6 +76,25 @@ toast.error(error.response?.data?.message || "Something went wrong");
     setThumbnail(file);
     setPreview(URL.createObjectURL(file));
   };
+
+  const fetcCategories = async ()=>{
+    try{
+         const res = await getCategories();
+      if(res.data.success){
+          setCategories(res.data.categories);
+      }
+      
+      
+    }
+    catch(error){
+       console.log(error);
+    }
+     
+
+  } 
+  useState(()=>{
+   fetcCategories();
+  },[])  
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -171,10 +192,15 @@ toast.error(error.response?.data?.message || "Something went wrong");
               value={formData.level}
               onChange={handelInput}
             >
-              <option value="">Select Level</option>
-              <option value="Beginner">Beginner</option>
-              <option value="Intermediate">Intermediate</option>
-              <option value="Advanced">Advanced</option>
+             <option value="">Select Category</option>
+
+  {categories
+    .filter((category) => category.status)
+    .map((category) => (
+      <option key={category._id} value={category._id}>
+        {category.categoryName}
+      </option>
+    ))}
             </select>
           </div>
 

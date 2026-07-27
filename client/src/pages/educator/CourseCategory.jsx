@@ -3,31 +3,80 @@ import Header from "../../components/educator/Header";
 import Sidebar from "../../components/educator/Sidebar";
 import Footer from "../../components/educator/Footer";
 import { FiPlus, FiEdit2, FiTrash2, FiSearch } from "react-icons/fi";
-import { getCategories } from "../../api/categoryApi";
+import { createCategories, deleteCategory, getCategories } from "../../api/categoryApi";
 import { useState } from "react";
+import { toast } from "react-toastify";
 const CourseCategory = () => {
   const [categories, setCategories] = useState([]);
-  const fetcCategories =async ()=>{
-    try{
-        const res = await getCategories();
-      console.log(res.data.categories);
+  const [categoryName, setCategoryName] = useState("");
+  const [status, setStatus] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const fetcCategories = async () => {
+    try {
+      const res = await getCategories();
       
 
-        if(res.data.success){
-          setCategories(res.data.categories)
-        }
-         console.log(categories);
-         
-     }
-    catch(error){
-
+      if (res.data.success) {
+        setCategories(res.data.categories);
+      }
+      console.log(categories);
+    } catch (error) {
+      toast.error("somthing went erong")
     }
-  }
-  useEffect(()=>{
+  };
+  useEffect(() => {
     fetcCategories();
+  }, []);
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    if (!categoryName.trim()) {
+      toast.error("Category name is required");
+      return;
+    }
+      setLoading(true);
+    try {
+      const res = await createCategories({
+        categoryName,
+        status,
+      });
+      
+      if (res.data.success) {
+        toast.success(res.data.message);
+        setCategoryName("");
+       
+
+        fetcCategories(); // list refresh
+      }
+    } catch (error) {
+       
+    console.log(error);
     
-  },[])
-  
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+    finally {
+    setLoading(false);
+  }
+  };
+  const handelClick = async (id)=>{
+      const conformDelete = window.confirm("are u want to delete category ?");
+      if(!conformDelete) return;
+
+      try{
+            const res = await deleteCategory(id);
+              if(res.data.success){
+                toast.success(res.data.message);
+              }
+              fetcCategories();
+      }
+      catch(error){
+         console.log("Status:", error.response?.status);
+  console.log("Data:", error.response?.data);
+            toast.error(error.response?.data?.message || "Something went wrong");
+      }
+  }
+
   return (
     <div className="flex h-screen bg-slate-100">
       <Sidebar />
@@ -54,18 +103,35 @@ const CourseCategory = () => {
               <h2 className="text-2xl font-semibold">Add New Category</h2>
             </div>
 
-            <div className="flex flex-col gap-5 p-4 lg:flex-row">
+            <form
+              onSubmit={handelSubmit}
+              className="flex flex-col gap-5 p-4 lg:flex-row"
+            >
               <input
                 type="text"
+                name="categoryName"
                 placeholder="Enter category name"
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
                 className="h-12 flex-1 rounded-xl border border-slate-300 px-5 outline-none focus:border-blue-500"
               />
+              <select
+                value={status.toString()}
+                onChange={(e) => setStatus(e.target.value === "true")}
+                className="h-12 w-44 rounded-xl border border-slate-300 px-4 outline-none focus:border-blue-500"
+              >
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
 
-              <button className="flex h-12 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 font-medium text-white transition hover:bg-blue-700">
+              <button
+                type="submit"
+                className="flex h-12 items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 font-medium text-white transition hover:bg-blue-700 cursor-pointer"
+              >
                 <FiPlus size={18} />
-                Add Category
+                {loading ? "Adding..." : "Add Category"}
               </button>
-            </div>
+            </form>
           </div>
 
           {/* Category List */}
@@ -97,8 +163,6 @@ const CourseCategory = () => {
 
                     <th className="px-6 py-5">Category Name</th>
 
-                  
-
                     <th className="px-6 py-5">Status</th>
 
                     <th className="px-6 py-5 text-center">Actions</th>
@@ -106,43 +170,41 @@ const CourseCategory = () => {
                 </thead>
 
                 <tbody>
-                  {categories.map((category,index) => (
+                  {categories.map((category, index) => (
                     <tr
                       key={category._id}
                       className="border-b last:border-0 hover:bg-slate-50"
                     >
-                      <td className="px-8 py-3 font-medium">
-        {index + 1}
-      </td>
+                      <td className="px-8 py-3 font-medium">{index + 1}</td>
 
                       <td className="px-6 py-5 font-medium text-slate-800">
                         {category.categoryName}
                       </td>
 
-                    
-
                       <td className="px-6 py-3">
-                       <td className="px-6 py-3">
-  <span
-    className={`rounded-full px-3 py-1 text-xs font-semibold ${
-      category.status
-        ? "bg-emerald-100 text-emerald-700"
-        : "bg-red-100 text-red-700"
-    }`}
-  >
-    {category.status ? "Active" : "Inactive"}
-  </span>
-</td>
+                        <span
+                          className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                            category.status
+                              ? "bg-emerald-100 text-emerald-700"
+                              : "bg-red-100 text-red-700"
+                          }`}
+                        >
+                          {category.status ? "Active" : "Inactive"}
+                        </span>
                       </td>
 
                       <td className="px-6 py-3">
                         <div className="flex justify-center gap-3">
-                          <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200">
+                          <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200
+                          cursor-pointer ">
                             <FiEdit2 />
                           </button>
 
-                          <button className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200">
-                            <FiTrash2 />
+                          <button
+                          onClick={()=>handelClick(category._id)}
+                           className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-200 cursor-pointer">
+                            <FiTrash2 
+                            />
                           </button>
                         </div>
                       </td>
