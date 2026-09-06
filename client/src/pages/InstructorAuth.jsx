@@ -2,11 +2,50 @@ import React from "react";
 import { assets } from "../assets/assets.js";
 import { Mail, Lock, Eye, User, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { adminLogin } from "../api/adminApi.js";
+import { toast } from "react-toastify";
 
 const InstructorAuth = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  })
+
+  const [loading, setLoading] = useState(false);
+  const handelChange = (e) => {
+    setFormData({
+      ...formData, [e.target.name]: e.target.value,
+    })
+  }
+  const handleLogin = async () => {
+    setLoading(true);
+    try {
+      const { data } = await adminLogin(formData)
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+            console.log(data);
+            
+        if (data.user.role === "admin") {
+          navigate("/admin")
+          toast.success(data.message);
+        }
+        else {
+          alert("You are not an instructor");
+        }
+      }
+    }
+    catch (error) {
+      alert(error.response?.data?.message || "Login Failed");
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen  flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-4xl bg-white rounded-[28px] shadow-[0_18px_60px_rgba(15,23,42,0.12)] overflow-hidden grid lg:grid-cols-[0.95fr_0.9fr]">
         <div className="relative hidden lg:flex items-center justify-center bg-slate-950">
           <img
@@ -16,7 +55,7 @@ const InstructorAuth = () => {
           />
 
           <div className="absolute inset-0 bg-slate-350/88"></div>
-          <button className="absolute top-10 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15 cursor-pointer" onClick={()=>navigate("/")}>
+          <button className="absolute top-10 left-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-medium text-white backdrop-blur transition hover:bg-white/15 cursor-pointer" onClick={() => navigate("/")}>
             <ArrowLeft size={16} />
             Back to home
           </button>
@@ -63,6 +102,9 @@ const InstructorAuth = () => {
                   <input
                     id="email"
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handelChange}
                     placeholder="Enter your email"
                     className="w-full bg-transparent outline-none text-slate-900 placeholder:text-slate-400"
                   />
@@ -81,11 +123,15 @@ const InstructorAuth = () => {
                   <input
                     id="password"
                     type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handelChange}
                     placeholder="Enter your password"
                     className="w-full bg-transparent outline-none text-slate-900 placeholder:text-slate-400"
                   />
                   <button
                     type="button"
+
                     className="text-slate-400 hover:text-slate-600 transition"
                   >
                     <Eye size={18} />
@@ -94,22 +140,24 @@ const InstructorAuth = () => {
               </div>
 
               <div className="flex items-center justify-between text-[11px] sm:text-sm text-slate-500">
-                <button
+                {/* <button
                   type="button"
                   className="text-blue-600 font-medium hover:text-blue-700"
                 >
                   Forgot password?
-                </button>
+                </button> */}
                 <span>Instructor only</span>
               </div>
 
               <button
                 type="button"
+                onClick={handleLogin}
+                disabled={loading}
                 className="w-full rounded-2xl bg-blue-600 px-5 py-3 text-white text-sm font-semibold transition hover:bg-blue-700"
               >
                 <span className="inline-flex items-center justify-center gap-2">
                   <User size={18} />
-                  Login as Instructor
+                  {loading ? "Logging in..." : "Login as Instructor"}
                 </span>
               </button>
             </form>

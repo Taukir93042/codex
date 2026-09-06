@@ -49,7 +49,7 @@ const HeroSection = ({ course }) => {
   };
 
   return (
-    <section className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-950 text-white relative">
+    <section className="bg-gradient-to-br from-[#0b1129] to-[#050816] text-white relative border-b border-slate-800/80">
       
       {/* Toast Notification */}
       {showShareToast && (
@@ -61,12 +61,12 @@ const HeroSection = ({ course }) => {
       <div className="max-w-7xl mx-auto px-6 md:px-16 py-12 md:py-20">
 
         {/* Breadcrumb */}
-        <p className="text-sm text-gray-400 mb-6 flex flex-wrap items-center gap-2">
-          <Link to="/" className="hover:text-white transition">Home</Link>
-          <span>/</span>
-          <Link to="/course-list" className="hover:text-white transition">Courses</Link>
-          <span>/</span>
-          <span className="text-indigo-400 font-medium">{course.category}</span>
+        <p className="text-sm text-slate-400 mb-6 flex flex-wrap items-center gap-2">
+          <Link to="/" className="hover:text-blue-400 transition duration-200">Home</Link>
+          <span className="text-slate-600">/</span>
+          <Link to="/course-list" className="hover:text-blue-400 transition duration-200">Courses</Link>
+          <span className="text-slate-600">/</span>
+          <span className="text-blue-400 font-semibold">{course.category}</span>
         </p>
 
         <div className="grid lg:grid-cols-3 gap-12 items-center">
@@ -96,7 +96,7 @@ const HeroSection = ({ course }) => {
             {/* Rating */}
             <div className="flex flex-wrap items-center gap-6 mt-8">
               
-              <div className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-xl border border-slate-700/50">
+              <div className="flex items-center gap-2 bg-slate-800/20 px-4 py-2 rounded-xl border border-slate-800">
                 <span className="font-bold text-yellow-400 text-lg">
                   {course.rating}
                 </span>

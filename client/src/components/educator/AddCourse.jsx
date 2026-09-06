@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiBookOpen, FiUploadCloud, FiImage, FiLink2 } from "react-icons/fi";
 import { createCourse } from "../../api/courseApi";
 import { toast } from "react-toastify";
@@ -77,7 +77,7 @@ toast.error(error.response?.data?.message || "Something went wrong");
     setPreview(URL.createObjectURL(file));
   };
 
-  const fetcCategories = async ()=>{
+  const fetchCategories = async ()=>{
     try{
          const res = await getCategories();
       if(res.data.success){
@@ -92,8 +92,8 @@ toast.error(error.response?.data?.message || "Something went wrong");
      
 
   } 
-  useState(()=>{
-   fetcCategories();
+  useEffect(()=>{
+   fetchCategories();
   },[])  
 
   return (
@@ -174,9 +174,14 @@ toast.error(error.response?.data?.message || "Something went wrong");
               onChange={handelInput}
             >
               <option value="">Select Category</option>
-              <option value="Web Development">Web Development</option>
-              <option value="Backend">Backend</option>
-              <option value="Programming">Programming</option>
+
+  {categories
+    .filter((category) => category.status)
+    .map((category) => (
+      <option key={category._id} value={category.categoryName}>
+        {category.categoryName}
+      </option>
+    ))}
             </select>
           </div>
 
@@ -192,15 +197,12 @@ toast.error(error.response?.data?.message || "Something went wrong");
               value={formData.level}
               onChange={handelInput}
             >
-             <option value="">Select Category</option>
+             
 
-  {categories
-    .filter((category) => category.status)
-    .map((category) => (
-      <option key={category._id} value={category._id}>
-        {category.categoryName}
-      </option>
-    ))}
+   <option value="">Select Level</option>
+  <option value="Beginner">Beginner</option>
+  <option value="Intermediate">Intermediate</option>
+  <option value="Advanced">Advanced</option>
             </select>
           </div>
 

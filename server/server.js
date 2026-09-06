@@ -4,7 +4,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js";
 import courseCategoryRoutes from "./routes/courseCategoryRoutes.js";
-
+import enrollmentRoutes from "./routes/enrollmentRoutes.js";
 import cors from "cors";
 import path from "path";
 
@@ -29,10 +29,13 @@ app.get("/",(req,res)=>{
 
 app.use("/api/user",userRoutes);
 app.use("/api/courses", courseRoutes);
- app.use("/api/course-categories",courseCategoryRoutes)
+ app.use("/api/course-categories",courseCategoryRoutes);
+
+ app.use("/api/enrollments",enrollmentRoutes )
 
 
  const PORT = process.env.PORT || 5000;
 app.listen(PORT,()=>{
      console.log(`Server running on port ${PORT}`);
 })
+// nodemon trigger change

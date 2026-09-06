@@ -8,22 +8,18 @@ import CTASection from '../components/CTASection'
 import Footer from '../components/Footer'
 
 const Home = () => {
-  return (
-   <div>
-  <Header/>
-    <Hero/>
-    <TrustedCompanies/>
-    <PopularCourses/>
-    <Testimonial/>
-    <CTASection/>
-    <Footer/>
-   </div>
-
-
   
-    
-     
-  )
-}
-
+  return (
+    <div className="min-h-screen bg-[#050816] text-white">
+      <Header />
+      <Hero />
+      
+      <TrustedCompanies />
+      <PopularCourses />
+      <Testimonial />
+      <CTASection />
+      <Footer />
+    </div>
+  );
+};
 export default Home

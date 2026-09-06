@@ -7,13 +7,13 @@ import CourseProvider from './context/Appcontext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-  <CourseProvider>
-<StrictMode>
+    <CourseProvider>
+      <StrictMode>
 
-    <App />
-  </StrictMode>
-  </CourseProvider>
-  
+        <App />
+      </StrictMode>
+    </CourseProvider>
+
   </BrowserRouter>
-  
+
 )

@@ -5,8 +5,8 @@ import generateToken from "../utils/generateToken.js";
 
 export const register = async(req,res)=>{
     try{
-          const {name,email,password,role} = req.body;
-          if(!name || !email || !password || !role){
+          const {name,email,password} = req.body;
+          if(!name || !email || !password ){
             return res.status(400).json({
                  success: false,
                 message: "Please fill all fields",
@@ -29,7 +29,7 @@ export const register = async(req,res)=>{
               const user = new User({
                 name,
                 email,
-                role,
+                role:"student",
                 password: hashedPassword
               })
 
@@ -37,10 +37,13 @@ export const register = async(req,res)=>{
 
               await user.save();
               if(user){
+                const userObj = user.toObject();
+                delete userObj.password;
                 return res.status(201).json({
                    success:true,
                    message:"user created successfully",
-                   token
+                   token,
+                   user: userObj
                 })
               }
 
@@ -84,10 +87,13 @@ export const login = async(req,res)=>{
 
          const token = generateToken(user);
 
+         const userObj = user.toObject();
+         delete userObj.password;
          return res.status(200).json({
            success: true,
             message:"Login Successfully",
             token,
+            user: userObj
          })
 
          

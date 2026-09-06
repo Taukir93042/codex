@@ -9,9 +9,28 @@ import {
   FiSettings,
   FiLogOut,
 } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { NavLink, replace, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+
+
 
 const Sidebar = () => {
+
+  const navigate = useNavigate();
+
+  
+const handelLogout =()=>{
+      localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        toast.success("Logout successfully!");
+
+        setTimeout(()=>{
+          navigate("/",{replace: true})
+        },1000)
+
+     
+}
   return (
     <aside className="w-64 h-screen bg-slate-950 text-slate-100 flex flex-col">
       <div className="h-20 flex items-center px-6 border-b border-slate-800">
@@ -130,7 +149,7 @@ const Sidebar = () => {
       </div>
 
       <div className="border-t border-slate-800 px-4 py-4">
-        <button className="flex w-full items-center justify-center gap-2 rounded-2xl border border-red-500 px-4 py-3 text-sm font-semibold text-red-400 transition hover:bg-red-500 hover:text-white">
+        <button className="flex w-full items-center justify-center gap-2 rounded-2xl border border-red-500 px-4 py-3 text-sm font-semibold text-red-400 transition hover:bg-red-500 hover:text-white cursor-pointer" onClick={handelLogout}>
           <FiLogOut size={16} />
           Logout
         </button>

@@ -3,13 +3,13 @@ import { FaQuoteLeft } from "react-icons/fa6";
 
 const TestimonialCard = ({ testimonial }) => {
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+    <div className="bg-[#0b1129]/60 rounded-xl p-6 border border-slate-800 hover:border-indigo-500/30 hover:-translate-y-2 transition-all duration-300 flex flex-col h-full shadow-lg text-white">
 
       {/* Top */}
 
       <div className="flex items-center justify-between">
 
-        <FaQuoteLeft className="text-3xl text-blue-100" />
+        <FaQuoteLeft className="text-3xl text-indigo-500/20" />
 
         <div
           className={`w-10 h-10 rounded-full ${testimonial.color} flex items-center justify-center text-xl`}
@@ -34,11 +34,11 @@ const TestimonialCard = ({ testimonial }) => {
 
       {/* Review */}
 
-      <p className="text-gray-600 leading-8 mt-3 min-h-[80px]">
+      <p className="text-slate-300 leading-8 mt-3 min-h-[80px]">
         {testimonial.review}
       </p>
 
-      <hr className="my-2" />
+      <hr className="my-2 border-slate-800" />
 
       {/* User */}
 
@@ -47,16 +47,16 @@ const TestimonialCard = ({ testimonial }) => {
         <img
           src={testimonial.image}
           alt=""
-          className="w-16 h-16 rounded-full object-cover border-2 border-blue-100"
+          className="w-16 h-16 rounded-full object-cover border-2 border-indigo-500/20"
         />
 
         <div className="flex-1">
 
-          <h3 className="text-sm font-semibold">
+          <h3 className="text-sm font-semibold text-white">
             {testimonial.name}
           </h3>
 
-          <p className="text-gray-500">
+          <p className="text-slate-400 text-xs">
             {testimonial.role}
           </p>
 
@@ -65,10 +65,10 @@ const TestimonialCard = ({ testimonial }) => {
             <img
               src={testimonial.companyLogo}
               alt=""
-              className="w-20 h-8 object-contain"
+              className="w-20 h-8 object-contain brightness-0 invert opacity-70"
             />
 
-            <span className="font-semibold text-sm">
+            <span className="font-semibold text-xs text-slate-300">
               {testimonial.company}
             </span>
 

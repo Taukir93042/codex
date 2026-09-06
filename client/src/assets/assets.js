@@ -17,7 +17,10 @@ import profile_img_3 from "./profile_img_3.png"
 import profile_img from "./profile_img.png"
 import profile_img2 from "./profile_img2.png"
  import favicon from './favicon.svg';
+ import banner_img from './banner_img.jpg';
  import instructorAuth1 from './instructorAuth1.png';
+ import about_banner from './about-us-banner.png';
+ import about_us_img1 from './about-us-img1.png';
  
  
 export const assets = {
@@ -28,7 +31,10 @@ export const assets = {
 accenture_logo,
 adobe_logo,
 favicon,
-instructorAuth1
+instructorAuth1,
+banner_img,
+about_banner,
+about_us_img1
 
 }
 
