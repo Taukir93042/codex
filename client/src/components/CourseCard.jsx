@@ -22,7 +22,7 @@ const CourseCard = ({ course }) => {
 
         {/* Course Image */}
         <img
-          src={`http://localhost:5000/${course?.thumbnail}`}
+     src={`https://code-campus-backend.onrender.com/${course?.thumbnail}`}
           alt={course?.title}
           className="relative h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />

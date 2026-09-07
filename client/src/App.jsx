@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/course-list" element={<CoursesList />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
-      <Route path="/checkout/:id" element={<Checkout/>} />
+        <Route path="/checkout/:id" element={<Checkout/>} />
         <Route path="/instructor-auth" element={<InstructorAuth />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactUs />} />
