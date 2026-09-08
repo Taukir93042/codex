@@ -29,7 +29,8 @@ const Profile = () => {
               <div className="flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-blue-600 text-4xl font-bold">
                 {storeUser?.avatar ? (
                   <img
-                    src={`http://localhost:5000/${storeUser.avatar}`}
+                    src={`${import.meta.env.VITE_API_URL}/${storeUser.avatar}`}
+                  
                     alt={storeUser.name}
                     className="h-full w-full object-cover"
                   />

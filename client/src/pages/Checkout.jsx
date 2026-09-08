@@ -86,7 +86,8 @@ const handleEnroll = async () => {
         <div className="mt-5 flex flex-col gap-5 sm:flex-row">
 
           <img
-                  src={`http://localhost:5000/${course.thumbnail}`}
+        
+                    src={`${import.meta.env.VITE_API_URL}/${course.thumbnail}`}
             alt="Course"
             className="h-36 w-full rounded-xl object-cover sm:h-32 sm:w-56"
           />
@@ -210,7 +211,7 @@ const handleEnroll = async () => {
         <div className="relative">
 
           <img
-                  src={`http://localhost:5000/${course.thumbnail}`}
+                   src={`${import.meta.env.VITE_API_URL}/${course.thumbnail}`}
             alt="Course"
             className="h-56 w-full object-cover"
           />

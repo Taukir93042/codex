@@ -239,7 +239,7 @@ function CourseDetails() {
           {/* Course Image */}
           <div className="relative">
             <img
-              src={`http://localhost:5000/${course.thumbnail}`}
+               src={`${import.meta.env.VITE_API_URL}/${course.thumbnail}`}
               alt={course.title}
               className="h-56 w-full object-cover"
             />

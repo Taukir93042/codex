@@ -3,7 +3,7 @@ import { testimonials } from "../assets/assets";
 import { getCourses } from "../api/courseApi";
 import { LogIn } from "lucide-react";
 export const CourseContext = createContext();
-
+export const API_URL = import.meta.env.VITE_API_URL;
 const CourseProvider = ({ children }) => {
   const [authType, setAuthType] = useState("signup"); // "login" or "signup"
   const [showAuthModal, setShowAuthModal] = useState(false);
