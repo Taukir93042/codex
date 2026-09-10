@@ -63,3 +63,33 @@ export const enrollCourse = async(req,res)=>{
     }
 
 }
+
+
+export const  getMyEnrollments =async (req,res)=>{
+   try{
+
+    const userId = req.user._id;
+      const enrollments = await Enrollment.find({
+        user:userId,
+        status:"active",
+      })
+      .populate("course")
+      .sort({ enrolledAt: -1 });
+
+      return res.status(200).json({
+        success:true,
+        count: enrollments.length,
+        enrollments,
+      })
+
+   }
+   catch(error){
+         console.error("Get my enrollments error:", error);
+
+        return res.status(500).json({
+          success:false,
+          message: "Failed to fetch enrolled courses",
+        })
+   }
+
+}

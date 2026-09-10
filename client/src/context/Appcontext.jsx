@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { testimonials } from "../assets/assets";
 import { getCourses } from "../api/courseApi";
 import { LogIn } from "lucide-react";
+import { getMyEnrollments } from "../api/enrollmentApi";
 export const CourseContext = createContext();
 export const API_URL = import.meta.env.VITE_API_URL;
 const CourseProvider = ({ children }) => {
@@ -11,7 +12,8 @@ const CourseProvider = ({ children }) => {
   const [storeUser, setStoreUser] = useState(null);
   const [courses, setCourses] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
-  
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [enrolledCoursesLoading, setEnrolledCoursesLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -47,7 +49,51 @@ const CourseProvider = ({ children }) => {
 
     fetchCourses();
   }, []);
-  console.log(courses);
+
+
+  const fetchEnrolledCourses = async () => {
+  if (!isLoggedIn) {
+    setEnrolledCourses([]);
+    return;
+  }
+
+  try {
+    setEnrolledCoursesLoading(true);
+
+    const response = await getMyEnrollments();
+
+    if (response?.success) {
+      setEnrolledCourses(response.enrollments || []);
+
+      console.log(
+        "Context enrolled courses:",
+        response.enrollments
+      );
+    } else {
+      setEnrolledCourses([]);
+    }
+
+  } catch (error) {
+    console.error(
+      "Get enrolled courses error:",
+      error
+    );
+
+    console.error(
+      "Error response:",
+      error?.response?.data
+    );
+
+    setEnrolledCourses([]);
+
+  } finally {
+    setEnrolledCoursesLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchEnrolledCourses();
+}, [isLoggedIn]);
   
 
   const value = {
@@ -63,7 +109,11 @@ const CourseProvider = ({ children }) => {
     setStoreUser,
     storeUser,
     showSuccess,
-    setShowSuccess
+    setShowSuccess,
+
+    enrolledCourses,
+    setEnrolledCourses,
+    enrolledCoursesLoading,
   };
   return (
     <CourseContext.Provider value={value}>{children}</CourseContext.Provider>

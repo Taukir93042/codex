@@ -8,3 +8,11 @@ export const  enrollCourse  = async (courseId)=>{
   });
   return response.data;
 }
+
+
+// Get logged-in user's enrolled courses
+export const getMyEnrollments = async () => {
+  const response = await api.get("/enrollments/my-courses");
+
+  return response.data;
+};
