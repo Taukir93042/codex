@@ -1,29 +1,63 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
 import { assets } from "../assets/assets.js";
 
 const ContactUs = () => {
   return (
-    <div className="min-h-screen bg-[#050816] text-white font-sans flex flex-col">
+    <div className="min-h-screen bg-[#030712] text-white font-sans flex flex-col selection:bg-blue-600 selection:text-white">
       <Header />
 
       <main className="flex-grow max-w-full">
-        {/* Hero Banner Section */}
-        <section
-          className="bg-[#050816] px-2 sm:px-6 relative overflow-hidden border-b border-slate-800/80"
-        >
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 lg:py-8 text-center flex flex-col items-center">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-500/15 border border-blue-500/30 px-4 py-1.5 text-xs font-semibold text-blue-400 uppercase tracking-wider">
-              <FaPaperPlane className="text-blue-400 animate-bounce" /> Get In Touch
-            </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-white">
-              Contact <span className="text-blue-500">Us</span>
-            </h1>
-            <p className=" max-w-2xl text-lg leading-relaxed text-slate-350">
-               Have questions? Our support team is here to help.
-            </p>
+        {/* ================= THIN HERO BANNER SECTION WITH IMAGE ================= */}
+        <section className="relative w-full overflow-hidden bg-[#030712] border-b border-slate-800/80">
+          {/* Background Image with Crisp Contrast */}
+          <div
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-1000"
+            style={{
+              backgroundImage: `url(${assets.courses_banner_hero || assets.about_us_workspace || assets.banner_img})`,
+            }}
+          />
+
+          {/* Very Light Subtle Tint For High Image Clarity & Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-black/25" />
+
+          {/* Ambient Neon Cyan / Blue Subtle Glow Behind Centered Text */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-28 bg-blue-600/15 rounded-full blur-[80px] pointer-events-none" />
+
+          {/* Banner Content Container (Centered & Thin) */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-11 z-10 flex flex-col items-center justify-center text-center">
+            
+            {/* Section Tag */}
+            <div className="flex items-center justify-center gap-2 mb-2 drop-shadow-md">
+              <div className="w-8 h-[2px] bg-gradient-to-l from-[#38bdf8] to-transparent rounded-full" />
+              <span className="text-[11px] sm:text-xs font-bold tracking-[0.2em] text-[#38bdf8] uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+                GET IN TOUCH
+              </span>
+              <div className="w-8 h-[2px] bg-gradient-to-r from-[#38bdf8] to-transparent rounded-full" />
+            </div>
+
+            {/* H2 Heading */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+              Contact Us
+            </h2>
+              
+            {/* Breadcrumb Navigation with Home Link */}
+            <nav className="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-200 mt-2.5 sm:mt-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              <Link
+                to="/"
+                className="text-slate-200 hover:text-cyan-400 font-semibold transition-colors"
+              >
+                Home
+              </Link>
+              <ChevronRight size={14} className="text-slate-300" />
+              <span className="text-cyan-400 font-bold">Contact</span>
+            </nav>
+
           </div>
         </section>
 

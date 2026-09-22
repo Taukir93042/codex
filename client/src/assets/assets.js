@@ -21,21 +21,59 @@ import profile_img2 from "./profile_img2.png"
  import instructorAuth1 from './instructorAuth1.png';
  import about_banner from './about-us-banner.png';
  import about_us_img1 from './about-us-img1.png';
+ import lms_hero_dashboard from './lms_hero_dashboard.jpg';
+ import lms_cta_bg from './lms_cta_bg.jpg';
+ import banner_slide_1 from './banner_slide_1.jpg';
+ import banner_slide_2 from './banner_slide_2.jpg';
+ import banner_slide_3 from './banner_slide_3.jpg';
+ import banner_slide_4 from './banner_slide_4.jpg';
  
  
+import hero_developer from './hero_developer.jpg';
+import bannar_img from './bannar-img.png';
+import mern_thumb from './mern_thumb.jpg';
+import uiux_thumb from './uiux_thumb.jpg';
+import python_thumb from './python_thumb.jpg';
+import devops_thumb from './devops_thumb.jpg';
+import about_us_workspace from './about_us_workspace.jpg';
+import about_mission_lab from './about_mission_lab.jpg';
+import codecampus_logo from './codecampus-logo.png';
+import courses_banner_hero from './courses_banner_hero.jpg';
+
 export const assets = {
+  logo: codecampus_logo,
+  codecampus_logo,
+  courses_banner_hero,
+  about_mission_lab,
   heroImg,
+  hero_developer,
+  bannar_img,
+  mern_thumb,
+  uiux_thumb,
+  python_thumb,
+  devops_thumb,
+  about_us_workspace,
   walmart_logo,
   microsoft_logo,
   paypal_logo,
-accenture_logo,
-adobe_logo,
-favicon,
-instructorAuth1,
-banner_img,
-about_banner,
-about_us_img1
-
+  accenture_logo,
+  adobe_logo,
+  profile_img_1,
+  profile_img_2,
+  profile_img_3,
+  profile_img,
+  profile_img2,
+  favicon,
+  instructorAuth1,
+  banner_img,
+  about_banner,
+  about_us_img1,
+  lms_hero_dashboard,
+  lms_cta_bg,
+  banner_slide_1,
+  banner_slide_2,
+  banner_slide_3,
+  banner_slide_4,
 }
 
 

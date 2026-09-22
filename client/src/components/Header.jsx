@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import InstructorAuthModal from "./InstructorAuthModal";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaUserCircle, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
+import { Search } from "lucide-react";
 import { CourseContext } from "../context/Appcontext";
+import { assets } from "../assets/assets.js";
 
 const Header = () => {
   const {
@@ -16,9 +16,12 @@ const Header = () => {
     setStoreUser,
     storeUser,
   } = useContext(CourseContext);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const profileRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,9 +35,6 @@ const Header = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log("store user", storeUser);
-  }, []);
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -44,246 +44,329 @@ const Header = () => {
     setMenuOpen(false);
   };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/course-list?search=${encodeURIComponent(searchQuery.trim())}`);
+      setMenuOpen(false);
+    }
+  };
+
   return (
-    <>
-      <header className="relative w-full border-b border-slate-800 bg-[#050816] px-10 text-white">
-        <div className=" max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="text-3xl font-bold">
-            Code<span className="text-blue-600">Campus</span>
-          </Link>
-          <nav className="hidden min-[878px]:flex items-center gap-10 font-medium">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                  : "hover:text-blue-600"
-              }
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/about-us"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                  : "hover:text-blue-600"
-              }
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/course-list"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                  : "hover:text-blue-600"
-              }
-            >
-              Courses
-            </NavLink>
+    <header className="sticky top-0 z-50 w-full bg-[#030712]/95 backdrop-blur-xl border-b border-slate-800/80 transition-all duration-300">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-1 sm:py-1.5 flex items-center justify-between gap-4">
+        
+        {/* Left: Brand Logo */}
+        <Link to="/" className="flex items-center gap-2 group shrink-0">
+          <img
+            src={assets.logo || assets.codecampus_logo}
+            alt="CodeCampus"
+            className="h-12 sm:h-14 md:h-16 lg:h-[82px] w-auto object-contain hover:scale-105 transition-all duration-200 drop-shadow-[0_2px_12px_rgba(59,130,246,0.18)]"
+          />
+        </Link>
 
-            <NavLink
-              to="/contact-us"
-              className={({ isActive }) =>
+        {/* Center: Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-7 xl:gap-9 text-sm lg:text-base font-medium">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `transition-colors duration-200 relative py-1 ${
                 isActive
-                  ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                  : "hover:text-blue-600"
-              }
-            >
-              Contact
-            </NavLink>
-          </nav>
-          {/* Buttons */}
-          <div className="flex items-center gap-4">
-            {/* Desktop Button */}
+                  ? "text-white font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#3b82f6] after:rounded-full"
+                  : "text-slate-300 hover:text-white"
+              }`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/course-list"
+            className={({ isActive }) =>
+              `transition-colors duration-200 relative py-1 ${
+                isActive
+                  ? "text-white font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#3b82f6] after:rounded-full"
+                  : "text-slate-300 hover:text-white"
+              }`
+            }
+          >
+            Courses
+          </NavLink>
+          <NavLink
+            to="/about-us"
+            className={({ isActive }) =>
+              `transition-colors duration-200 relative py-1 ${
+                isActive
+                  ? "text-white font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#3b82f6] after:rounded-full"
+                  : "text-slate-300 hover:text-white"
+              }`
+            }
+          >
+            About
+          </NavLink>
+          
+          <NavLink
+            to="/contact-us"
+            className={({ isActive }) =>
+              `transition-colors duration-200 relative py-1 ${
+                isActive
+                  ? "text-white font-semibold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-[#3b82f6] after:rounded-full"
+                  : "text-slate-300 hover:text-white"
+              }`
+            }
+          >
+            Contact
+          </NavLink>
+        </nav>
 
-            <div className="hidden min-[878px]:flex items-center gap-3">
-              {isLoggedIn ? (
-                <div className="relative" ref={profileRef}>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setProfileOpen(!profileOpen);
-                    }}
-                    className="flex items-center gap-3 text-lg hover:text-blue-600 cursor-pointer"
+        {/* Right: Search Input + Log In + Sign Up */}
+        <div className="flex items-center gap-3 shrink-0">
+          
+          {/* Search Pill Input */}
+          <form
+            onSubmit={handleSearchSubmit}
+            className="hidden md:flex items-center relative"
+          >
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search courses..."
+              className="w-40 lg:w-48 xl:w-56 bg-[#070d24] border border-slate-700/80 rounded-full pl-4 pr-9 py-1.5 text-xs xl:text-sm text-white placeholder-slate-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all"
+            />
+            <button
+              type="submit"
+              className="absolute right-3 text-slate-400 hover:text-blue-400 transition cursor-pointer"
+              title="Search"
+            >
+              <Search size={15} />
+            </button>
+          </form>
+
+          {/* User Auth Buttons or Profile Menu */}
+          {isLoggedIn ? (
+            <div className="relative shrink-0" ref={profileRef}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setProfileOpen(!profileOpen);
+                }}
+                className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/70 transition text-sm font-medium cursor-pointer"
+              >
+                <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-sm">
+                  {storeUser?.name ? storeUser.name.charAt(0).toUpperCase() : <FaUserCircle size={16} />}
+                </div>
+                <span className="text-slate-200 max-w-[100px] truncate text-xs xl:text-sm">{storeUser?.name || "Account"}</span>
+              </button>
+
+              {profileOpen && (
+                <div className="absolute right-0 top-12 w-56 bg-[#090e24] rounded-xl shadow-2xl overflow-hidden z-50 border border-slate-700 p-1.5 backdrop-blur-xl">
+                  <div className="px-3.5 py-2.5 border-b border-slate-800">
+                    <p className="text-xs text-slate-400">Signed in as</p>
+                    <p className="text-sm font-bold text-white truncate">{storeUser?.name || "Student"}</p>
+                  </div>
+
+                  <Link
+                    to="/profile"
+                    onClick={() => setProfileOpen(false)}
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg transition hover:bg-blue-600/15 text-xs xl:text-sm text-slate-200 hover:text-white"
                   >
-                    <FaUserCircle className="text-3xl" />
-                    <span>{storeUser?.name}</span>
+                    <FaUser className="text-slate-400" />
+                    <span>Dashboard & Profile</span>
+                  </Link>
+
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg mt-1 transition hover:bg-red-500/15 text-left cursor-pointer text-xs xl:text-sm text-red-400"
+                  >
+                    <FaSignOutAlt className="text-red-400" />
+                    <span>Log Out</span>
                   </button>
-                  {profileOpen && (
-                    <div className="absolute right-0 top-12 w-48 bg-[#080d1d] rounded-xl shadow-2xl overflow-hidden z-50 border border-slate-700/80">
-                      {/* Profile */}
-                      <Link
-                        to="/profile"
-                        onClick={() => setProfileOpen(false)}
-                        className="group flex items-center gap-3 px-5 py-3.5 transition hover:bg-blue-600/10"
-                      >
-                        <FaUser className="text-slate-400 group-hover:text-blue-400 transition" />
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+              <button
+                onClick={() => {
+                  setAuthType("signin");
+                  setShowAuthModal(true);
+                }}
+                className="px-4 py-1.5 rounded-xl text-xs xl:text-sm font-semibold text-slate-200 hover:text-white bg-transparent hover:bg-slate-800/80 border border-slate-700/80 transition cursor-pointer whitespace-nowrap shrink-0"
+              >
+                Log In
+              </button>
+              <button
+                onClick={() => {
+                  setAuthType("signup");
+                  setShowAuthModal(true);
+                }}
+                className="px-4 py-1.5 rounded-xl text-xs xl:text-sm font-semibold text-white bg-[#2563eb] hover:bg-blue-600 transition shadow-md shadow-blue-600/25 cursor-pointer whitespace-nowrap shrink-0 hover:-translate-y-0.5"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
 
-                        <span className="text-slate-200 group-hover:text-white transition">
-                          Profile
-                        </span>
-                      </Link>
+          {/* Mobile Menu Hamburger Button */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-xl text-slate-200 hover:text-white transition cursor-pointer"
+            aria-label="Toggle Menu"
+          >
+            {menuOpen ? <HiX /> : <HiMenu />}
+          </button>
 
-                      {/* Logout */}
-                      <button
-                        onClick={handleLogout}
-                        className="group w-full flex items-center gap-3 px-5 py-3.5 border-t border-slate-800 transition hover:bg-red-500/10 text-left cursor-pointer"
-                      >
-                        <FaSignOutAlt className="text-red-400" />
+        </div>
 
-                        <span className="text-red-400">Logout</span>
-                      </button>
-                    </div>
-                  )}
+      </div>
+
+      {/* Mobile Drawer */}
+      {menuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div
+            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div className="relative ml-auto h-full w-72 max-w-[80vw] bg-[#050816] border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl z-10">
+            <div>
+              <div className="flex items-center justify-between pb-5 border-b border-slate-800">
+                <Link to="/" onClick={() => setMenuOpen(false)}>
+                  <img
+                    src={assets.logo || assets.codecampus_logo}
+                    alt="CodeCampus"
+                    className="h-14 sm:h-16 w-auto object-contain"
+                  />
+                </Link>
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  className="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white"
+                >
+                  <HiX size={20} />
+                </button>
+              </div>
+
+              {/* Mobile Search */}
+              <form onSubmit={handleSearchSubmit} className="mt-5 relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search courses..."
+                  className="w-full bg-slate-900 border border-slate-800 rounded-lg pl-3 pr-8 py-2 text-xs text-white placeholder-slate-400 outline-none focus:border-blue-500"
+                />
+                <button type="submit" className="absolute right-2.5 top-2.5 text-slate-400">
+                  <Search size={14} />
+                </button>
+              </form>
+
+              {/* Mobile Navigation Links */}
+              <nav className="flex flex-col gap-1.5 mt-5">
+                <NavLink
+                  to="/"
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-4 py-3 rounded-xl text-sm font-medium transition ${
+                      isActive ? "bg-blue-600/20 text-blue-400 font-semibold" : "text-slate-300 hover:bg-slate-900"
+                    }`
+                  }
+                >
+                  Home
+                </NavLink>
+                <NavLink
+                  to="/course-list"
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-4 py-3 rounded-xl text-sm font-medium transition ${
+                      isActive ? "bg-blue-600/20 text-blue-400 font-semibold" : "text-slate-300 hover:bg-slate-900"
+                    }`
+                  }
+                >
+                  Courses
+                </NavLink>
+                <NavLink
+                  to="/about-us"
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-4 py-3 rounded-xl text-sm font-medium transition ${
+                      isActive ? "bg-blue-600/20 text-blue-400 font-semibold" : "text-slate-300 hover:bg-slate-900"
+                    }`
+                  }
+                >
+                  About
+                </NavLink>
+                <NavLink
+                  to="/about-us"
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-4 py-3 rounded-xl text-sm font-medium transition ${
+                      isActive ? "bg-blue-600/20 text-blue-400 font-semibold" : "text-slate-300 hover:bg-slate-900"
+                    }`
+                  }
+                >
+                  Blog
+                </NavLink>
+                <NavLink
+                  to="/contact-us"
+                  onClick={() => setMenuOpen(false)}
+                  className={({ isActive }) =>
+                    `px-4 py-3 rounded-xl text-sm font-medium transition ${
+                      isActive ? "bg-blue-600/20 text-blue-400 font-semibold" : "text-slate-300 hover:bg-slate-900"
+                    }`
+                  }
+                >
+                  Contact
+                </NavLink>
+              </nav>
+            </div>
+
+            {/* Mobile Auth Bottom Section */}
+            <div className="pt-5 border-t border-slate-800">
+              {isLoggedIn ? (
+                <div className="space-y-2">
+                  <Link
+                    to="/profile"
+                    onClick={() => setMenuOpen(false)}
+                    className="block w-full text-center py-2.5 rounded-xl bg-slate-900 text-white text-sm font-medium border border-slate-800"
+                  >
+                    View Profile
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-center py-2.5 rounded-xl bg-red-500/10 text-red-400 text-sm font-medium border border-red-500/20"
+                  >
+                    Log Out
+                  </button>
                 </div>
               ) : (
-                <>
+                <div className="flex flex-col gap-2.5">
                   <button
                     onClick={() => {
                       setAuthType("signin");
                       setShowAuthModal(true);
+                      setMenuOpen(false);
                     }}
-                    className="px-5 py-2.5 rounded-xl border border-slate-700 hover:bg-slate-800 transition cursor-pointer"
+                    className="w-full py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-sm font-medium"
                   >
-                    Sigin
+                    Log In
                   </button>
                   <button
                     onClick={() => {
                       setAuthType("signup");
                       setShowAuthModal(true);
+                      setMenuOpen(false);
                     }}
-                    className="px-5 py-2.5 rounded-md bg-blue-600 hover:bg-blue-700 transition font-semibold cursor-pointer"
+                    className="w-full py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold shadow-md shadow-blue-600/30"
                   >
-                    Create Acount
+                    Sign Up
                   </button>
-                </>
+                </div>
               )}
             </div>
 
-            {/* Mobile Menu Icon */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="min-[878px]:hidden text-3xl"
-            >
-              {menuOpen ? <HiX /> : <HiMenu />}
-            </button>
           </div>
         </div>
-
-        {menuOpen && (
-          <div
-            className={`fixed top-0 right-0 h-screen w-72 bg-[#050816] border-l border-slate-700 z-50 transform transition-transform duration-300 ease-in-out min-[878px]:hidden ${
-              menuOpen ? "translate-x-0" : "translate-x-full"
-            }`}
-          >
-            {/* Close Button */}
-            <div className="flex justify-end p-5">
-              <button onClick={() => setMenuOpen(false)}>
-                <HiX className="text-3xl" />
-              </button>
-            </div>
-
-            <nav className="flex flex-col">
-              <NavLink
-                to="/"
-                onClick={() => setMenuOpen(false)}
-                className="px-6 py-4 hover:bg-slate-800"
-              >
-                Home
-              </NavLink>
-
-              <NavLink
-                to="/about-us"
-                onClick={() => setMenuOpen(false)}
-                className="px-6 py-4 hover:bg-slate-800"
-              >
-                About
-              </NavLink>
-
-              <NavLink
-                to="/course-list"
-                onClick={() => setMenuOpen(false)}
-                className="px-6 py-4 hover:bg-slate-800"
-              >
-                Courses
-              </NavLink>
-
-              <NavLink
-                to="/contact-us"
-                onClick={() => setMenuOpen(false)}
-                className="px-6 py-4 hover:bg-slate-800"
-              >
-                Contact
-              </NavLink>
-
-              <div className="px-6 py-4">
-                {isLoggedIn ? (
-                  <div className="relative flex flex-col items-start gap-3 w-full">
-                    <button
-                      onClick={() => setProfileOpen(!profileOpen)}
-                      className="flex items-center gap-3 text-lg hover:text-blue-600 cursor-pointer text-white w-full text-left"
-                    >
-                      <FaUserCircle className="text-3xl" />
-                      <span>{storeUser?.name}</span>
-                    </button>
-                    {profileOpen && (
-                      <div className="w-full bg-white text-slate-800 rounded-lg shadow-xl overflow-hidden z-50 border border-slate-200 mt-2">
-                        {/* Profile */}
-                        <Link
-                          to="/profile"
-                          onClick={() => {
-                            setProfileOpen(false);
-                            setMenuOpen(false);
-                          }}
-                          className="flex items-center gap-3 px-4 py-3 hover:bg-slate-100 transition text-slate-700 hover:text-slate-900"
-                        >
-                          <FaUser className="text-slate-500" />
-                          Profile
-                        </Link>
-
-                        {/* Logout */}
-                        <button
-                          onClick={handleLogout}
-                          className="w-full flex items-center gap-3 px-4 py-3 hover:bg-slate-100 transition text-red-500 text-left cursor-pointer border-t border-slate-100"
-                        >
-                          <FaSignOutAlt className="text-red-500" />
-                          Logout
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => {
-                        setAuthType("signup");
-                        setShowAuthModal(true);
-                        setMenuOpen(false);
-                      }}
-                      className="w-full text-center bg-blue-600 py-3 rounded-full font-semibold text-white cursor-pointer"
-                    >
-                      Create Account
-                    </button>
-
-                    <button
-                      onClick={() => {}}
-                      className="w-full text-center bg-slate-800 border border-slate-700 py-3 rounded-full font-semibold text-white cursor-pointer"
-                    >
-                      Sign in
-                    </button>
-                  </>
-                )}
-              </div>
-            </nav>
-          </div>
-        )}
-      </header>
-
-      {/* Modal */}
-    </>
+      )}
+    </header>
   );
 };
 

@@ -80,11 +80,13 @@ const InstructorAuth = () => {
 
         <div className="p-6 sm:p-8 flex items-center justify-center bg-slate-50">
           <div className="w-full max-w-sm">
-            <div className="text-center mb-7">
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Code<span className="text-blue-600">Campus</span>
-              </h2>
-              <p className="text-slate-600 mt-2 text-sm sm:text-base">
+            <div className="text-center mb-7 flex flex-col items-center">
+              <img
+                src={assets.logo || assets.codecampus_logo}
+                alt="CodeCampus"
+                className="h-11 w-auto object-contain mb-3 brightness-90 contrast-125"
+              />
+              <p className="text-slate-600 text-sm">
                 Instructor login to manage your classroom and content.
               </p>
             </div>

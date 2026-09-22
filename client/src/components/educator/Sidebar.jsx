@@ -15,6 +15,8 @@ import { toast } from "react-toastify";
 
 
 
+import { assets } from "../../assets/assets.js";
+
 const Sidebar = () => {
 
   const navigate = useNavigate();
@@ -33,15 +35,17 @@ const handelLogout =()=>{
 }
   return (
     <aside className="w-64 h-screen bg-slate-950 text-slate-100 flex flex-col">
-      <div className="h-20 flex items-center px-6 border-b border-slate-800">
-        <div>
-          <h1 className="text-2xl font-semibold text-white">
-            Code <span className="text-blue-600 pl-0">Campus</span>
-          </h1>
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-500 mt-1">
-            Educator panel
-          </p>
-        </div>
+      <div className="h-20 flex flex-col justify-center px-6 border-b border-slate-800">
+        <NavLink to="/" className="inline-block">
+          <img
+            src={assets.logo || assets.codecampus_logo}
+            alt="CodeCampus"
+            className="h-10 w-auto object-contain"
+          />
+        </NavLink>
+        <p className="text-[10px] uppercase tracking-[0.25em] text-slate-400 mt-1">
+          Educator panel
+        </p>
       </div>
 
       <div className="flex-1 overflow-y-auto hide-scrollbar px-4 py-5">
