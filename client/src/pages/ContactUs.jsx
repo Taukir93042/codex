@@ -62,69 +62,72 @@ const ContactUs = () => {
         </section>
 
         {/* Main Grid Content */}
-        <section className="py-16 px-4 sm:px-10 bg-[#050816]">
-          <div className="max-w-7xl mx-auto px-6 grid gap-12 lg:grid-cols-2">
+        <section className="py-16 px-4 sm:px-10 bg-[#050816] relative overflow-hidden">
+          {/* Subtle Ambient Neon Blurs */}
+          <div className="absolute top-1/4 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+          <div className="max-w-7xl mx-auto px-6 grid gap-12 lg:grid-cols-2 relative z-10">
             
             {/* Left Side: Contact Information Card Grid */}
             <div className="flex flex-col space-y-8 lg:sticky lg:top-8 self-start">
               <div>
                 <h2 className="text-3xl font-extrabold text-white tracking-tight mb-4">Connect With Us</h2>
-                <p className="text-slate-400 leading-relaxed text-lg">
+                <p className="text-slate-300/80 leading-relaxed text-base sm:text-lg">
                   Whether you have questions, need guidance, or want to learn more, we're here to help.
                 </p>
               </div>
 
               {/* Info Details Cards */}
-              <div className="grid gap-6 w-full max-w-xl">
+              <div className="grid gap-5 w-full max-w-xl">
                 
                 {/* Phone */}
-                <div className="group p-6 rounded-2xl border flex items-center border-slate-800/80 bg-[#0b1129]/60 hover:border-blue-500/40 transition duration-300">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition duration-300 flex-shrink-0 mr-4">
+                <div className="group p-5 sm:p-6 rounded-2xl border border-white/15 bg-slate-900/40 backdrop-blur-xl hover:border-blue-500/40 hover:bg-slate-900/60 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)_inset] flex items-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 group-hover:scale-110 group-hover:border-cyan-400/50 group-hover:text-cyan-300 transition duration-300 flex-shrink-0 mr-4 backdrop-blur-md">
                     <FaPhoneAlt size={18} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg text-white group-hover:text-blue-400 transition">Phone Support</h3>
-                    <p className="font-semibold text-blue-400 text-sm mt-1">
+                    <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-blue-400 transition">Phone Support</h3>
+                    <p className="font-semibold text-blue-400 text-sm mt-0.5">
                       +1 (800) 555-0199
                     </p>
                   </div>
                 </div>
 
                 {/* Email */}
-                <div className="group p-6 rounded-2xl border flex items-center border-slate-800/80 bg-[#0b1129]/60 hover:border-blue-500/40 transition duration-300">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition duration-300 flex-shrink-0 mr-4">
+                <div className="group p-5 sm:p-6 rounded-2xl border border-white/15 bg-slate-900/40 backdrop-blur-xl hover:border-blue-500/40 hover:bg-slate-900/60 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)_inset] flex items-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 group-hover:scale-110 group-hover:border-cyan-400/50 group-hover:text-cyan-300 transition duration-300 flex-shrink-0 mr-4 backdrop-blur-md">
                     <FaEnvelope size={18} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg text-white group-hover:text-blue-400 transition">Email Inquiries</h3>
-                    
-                    <p className="font-semibold text-blue-400 text-sm mt-1">
+                    <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-blue-400 transition">Email Inquiries</h3>
+                    <p className="font-semibold text-blue-400 text-sm mt-0.5">
                       support@codecampus.com
                     </p>
                   </div>
                 </div>
 
                 {/* Office Location */}
-                <div className="group p-6 rounded-2xl border flex items-center border-slate-800/80 bg-[#0b1129]/60 hover:border-blue-500/40 transition duration-300">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition duration-300 flex-shrink-0 mr-4">
+                <div className="group p-5 sm:p-6 rounded-2xl border border-white/15 bg-slate-900/40 backdrop-blur-xl hover:border-blue-500/40 hover:bg-slate-900/60 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)_inset] flex items-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 group-hover:scale-110 group-hover:border-cyan-400/50 group-hover:text-cyan-300 transition duration-300 flex-shrink-0 mr-4 backdrop-blur-md">
                     <FaMapMarkerAlt size={18} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg text-white group-hover:text-blue-400 transition">Headquarters</h3>
-                    <p className="font-semibold text-blue-400 text-sm mt-1">
+                    <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-blue-400 transition">Headquarters</h3>
+                    <p className="font-semibold text-blue-400 text-sm mt-0.5">
                       123 Innovation St, CA 94043
                     </p>
                   </div>
                 </div>
 
                 {/* Working Hours */}
-                <div className="group p-6 rounded-2xl border flex items-center border-slate-800/80 bg-[#0b1129]/60 hover:border-blue-500/40 transition duration-300">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition duration-300 flex-shrink-0 mr-4">
+                <div className="group p-5 sm:p-6 rounded-2xl border border-white/15 bg-slate-900/40 backdrop-blur-xl hover:border-blue-500/40 hover:bg-slate-900/60 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)_inset] flex items-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 group-hover:scale-110 group-hover:border-cyan-400/50 group-hover:text-cyan-300 transition duration-300 flex-shrink-0 mr-4 backdrop-blur-md">
                     <FaClock size={18} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg text-white group-hover:text-blue-400 transition">Support Hours</h3>
-                    <p className="font-semibold text-blue-400 text-sm mt-1">
+                    <h3 className="font-bold text-base sm:text-lg text-white group-hover:text-blue-400 transition">Support Hours</h3>
+                    <p className="font-semibold text-blue-400 text-sm mt-0.5">
                       Mon - Fri: 9:00 AM - 6:00 PM EST
                     </p>
                   </div>
@@ -134,97 +137,99 @@ const ContactUs = () => {
             </div>
 
             {/* Right Side: Contact Form Container */}
-            <div className="rounded-3xl border border-slate-800/80 bg-[#0b1129]/40 p-8 lg:p-10 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-3xl"></div>
+            <div className="rounded-3xl border border-white/20 bg-slate-900/40 backdrop-blur-2xl p-7 sm:p-9 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)_inset] relative overflow-hidden">
+              {/* Ambient Glows */}
+              <div className="absolute -top-24 -right-24 w-52 h-52 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -left-24 w-52 h-52 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
               
-              <h2 className="text-3xl font-bold text-white mb-2">Send a Message</h2>
-             <p className="text-white mb-8 leading-relaxed">
-  Fill out the form below, and we'll get back to you soon.
-</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 relative z-10 tracking-tight">Send a Message</h2>
+              <p className="text-slate-300/80 mb-6 sm:mb-8 leading-relaxed text-sm relative z-10">
+                Fill out the form below, and we'll get back to you soon.
+              </p>
 
-              <form onSubmit={(e) => e.preventDefault()} className="space-y-3 relative z-10">
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-4 relative z-10">
                 {/* First and Last Name */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2" htmlFor="firstName">
+                    <label className="block text-xs font-semibold text-slate-200 mb-1.5" htmlFor="firstName">
                       First Name
                     </label>
                     <input
                       type="text"
                       id="firstName"
                       placeholder="John"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition duration-200"
+                      className="w-full bg-black/30 hover:bg-black/40 focus:bg-black/50 backdrop-blur-md border border-white/15 focus:border-blue-400 rounded-xl px-4 py-2.5 sm:py-3 text-sm text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-500/25 transition-all shadow-inner"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2" htmlFor="lastName">
+                    <label className="block text-xs font-semibold text-slate-200 mb-1.5" htmlFor="lastName">
                       Last Name
                     </label>
                     <input
                       type="text"
                       id="lastName"
                       placeholder="Doe"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition duration-200"
+                      className="w-full bg-black/30 hover:bg-black/40 focus:bg-black/50 backdrop-blur-md border border-white/15 focus:border-blue-400 rounded-xl px-4 py-2.5 sm:py-3 text-sm text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-500/25 transition-all shadow-inner"
                     />
                   </div>
                 </div>
 
                 {/* Phone and Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2" htmlFor="phone">
+                    <label className="block text-xs font-semibold text-slate-200 mb-1.5" htmlFor="phone">
                       Phone Number
                     </label>
                     <input
                       type="tel"
                       id="phone"
                       placeholder="+1 (800) 555-0199"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition duration-200"
+                      className="w-full bg-black/30 hover:bg-black/40 focus:bg-black/50 backdrop-blur-md border border-white/15 focus:border-blue-400 rounded-xl px-4 py-2.5 sm:py-3 text-sm text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-500/25 transition-all shadow-inner"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-white mb-2" htmlFor="email">
+                    <label className="block text-xs font-semibold text-slate-200 mb-1.5" htmlFor="email">
                       Email Address
                     </label>
                     <input
                       type="email"
                       id="email"
                       placeholder="john@example.com"
-                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition duration-200"
+                      className="w-full bg-black/30 hover:bg-black/40 focus:bg-black/50 backdrop-blur-md border border-white/15 focus:border-blue-400 rounded-xl px-4 py-2.5 sm:py-3 text-sm text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-500/25 transition-all shadow-inner"
                     />
                   </div>
                 </div>
 
                 {/* Subject */}
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2" htmlFor="subject">
+                  <label className="block text-xs font-semibold text-slate-200 mb-1.5" htmlFor="subject">
                     Subject
                   </label>
                   <input
                     type="text"
                     id="subject"
                     placeholder="How can we help you?"
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition duration-200"
+                    className="w-full bg-black/30 hover:bg-black/40 focus:bg-black/50 backdrop-blur-md border border-white/15 focus:border-blue-400 rounded-xl px-4 py-2.5 sm:py-3 text-sm text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-500/25 transition-all shadow-inner"
                   />
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-semibold text-white mb-2" htmlFor="message">
+                  <label className="block text-xs font-semibold text-slate-200 mb-1.5" htmlFor="message">
                     Your Message
                   </label>
                   <textarea
                     id="message"
                     rows="4"
                     placeholder="Describe your inquiry in detail..."
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-white placeholder-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition duration-200 resize-none"
+                    className="w-full bg-black/30 hover:bg-black/40 focus:bg-black/50 backdrop-blur-md border border-white/15 focus:border-blue-400 rounded-xl px-4 py-2.5 sm:py-3 text-sm text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-500/25 transition-all shadow-inner resize-none"
                   ></textarea>
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-blue-600 py-3 font-bold text-white transition hover:bg-blue-700 shadow-lg hover:shadow-blue-500/20 text-center cursor-pointer"
+                  className="w-full rounded-xl bg-[#2563eb]/30 hover:bg-[#2563eb]/45 backdrop-blur-md border border-[#3b82f6]/50 hover:border-[#60a5fa]/70 py-3.5 font-bold text-white text-sm transition-all shadow-[0_4px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_25px_rgba(37,99,235,0.4)] text-center cursor-pointer hover:-translate-y-0.5 active:translate-y-0 mt-2"
                 >
                   Send Message
                 </button>
@@ -238,16 +243,16 @@ const ContactUs = () => {
         <section className="pb-20 px-4 sm:px-10 bg-[#050816]">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="px-6 py-2 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold uppercase tracking-wider text-sm">
+              <span className="px-6 py-2 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold uppercase tracking-wider text-sm backdrop-blur-md">
                 Our Location
               </span>
               <h2 className="text-4xl font-extrabold mt-6 text-white tracking-tight">Find Us on the Map</h2>
-              <p className="mt-4 text-slate-400 max-w-2xl mx-auto text-lg">
+              <p className="mt-4 text-slate-300/80 max-w-2xl mx-auto text-base sm:text-lg">
                 Stop by our main campus or get directions to attend our regular student workshops and hackathons.
               </p>
             </div>
             
-            <div className="overflow-hidden rounded-3xl border border-slate-800 shadow-2xl">
+            <div className="overflow-hidden rounded-3xl border border-white/15 bg-slate-900/30 backdrop-blur-xl shadow-2xl">
               <iframe
                 title="CodeCampus Location Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.3325335515754!2d-122.01116148469499!3d37.33468037984242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb596e9e188fd%3A0x3b0d8391510688f0!2sApple%20Park!5e0!3m2!1sen!2sus!4v1659999999999!5m2!1sen!2sus"
